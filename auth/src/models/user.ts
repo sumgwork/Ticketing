@@ -25,16 +25,29 @@ interface UserDoc extends mongoose.Document {
   // Any extra property like createdAt, updatedAt will be applied here
 }
 
-const userSchema = new mongoose.Schema({
-  email: {
-    type: String,
-    required: true,
+const userSchema = new mongoose.Schema(
+  {
+    email: {
+      type: String,
+      required: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
   },
-  password: {
-    type: String,
-    required: true,
-  },
-});
+  {
+    toJSON: {
+      // This will be invoked if we convert the object to a JSON. Doing this here so that we never get the password back
+      transform(doc, ret) {
+        ret.id = ret._id;
+        delete ret._id; // Changed _id to id
+        delete ret.password;
+        delete ret.__v; // Removed version key. Another way was to set it false in options (3rd arg)
+      },
+    },
+  }
+);
 
 /**
  * This hook will be called when saving a password

@@ -38,6 +38,7 @@ const userSchema = new mongoose.Schema({
 
 /**
  * This hook will be called when saving a password
+ * Used here for hashing the password before saving to the DB
  */
 userSchema.pre("save", async function (done) {
   if (this.isModified("password")) {

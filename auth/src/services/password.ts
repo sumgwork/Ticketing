@@ -1,9 +1,9 @@
 import bcrypt from "bcrypt";
-const SALT_ROUNDS = 10;
+const SALT_ROUNDS: number = 10;
 
 export class Password {
-  static async toHash(password) {
-    const hashed = await bcrypt.hash(password, SALT_ROUNDS);
+  static async toHash(password: string): string {
+    const hashed: string = await bcrypt.hash(password, SALT_ROUNDS);
     return hashed;
   }
 

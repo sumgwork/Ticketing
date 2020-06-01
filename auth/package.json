@@ -4,7 +4,20 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node-dev --poll src/index.ts"
+    "start": "ts-node-dev --poll src/index.ts",
+    "test": "jest --watchAll --no-cache"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "setupFilesAfterEnv": [
+      "./src/test/setup.ts"
+    ],
+    "globals": {
+      "ts-jest": {
+        "diagnostics": false
+      }
+    }
   },
   "keywords": [],
   "author": "",
@@ -24,5 +37,13 @@
     "mongoose": "^5.9.16",
     "ts-node-dev": "^1.0.0-pre.44",
     "typescript": "^3.9.3"
+  },
+  "devDependencies": {
+    "@types/jest": "^25.2.3",
+    "@types/supertest": "^2.0.9",
+    "jest": "^26.0.1",
+    "mongodb-memory-server": "^6.6.1",
+    "supertest": "^4.0.2",
+    "ts-jest": "^26.1.0"
   }
 }

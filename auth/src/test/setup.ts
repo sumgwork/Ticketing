@@ -1,7 +1,29 @@
 import { MongoMemoryServer } from "mongodb-memory-server";
 // Create an in momory mongodb
 import mongoose from "mongoose";
+import request from "supertest";
 import { app } from "../app";
+
+declare global {
+  namespace NodeJS {
+    interface Global {
+      signin(): Promise<string[]>;
+    }
+  }
+}
+
+global.signin = async () => {
+  const authResponse = await request(app)
+    .post("/api/users/signup")
+    .send({
+      email: "test@test.com",
+      password: "password",
+    })
+    .expect(201);
+
+  const cookie = authResponse.get("Set-Cookie");
+  return cookie;
+};
 
 let mongo: any;
 beforeAll(async () => {

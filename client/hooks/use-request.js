@@ -8,6 +8,7 @@ const useRequest = ({ url, method, body, onSuccess }) => {
     setErrors(null);
     try {
       const response = await axios[method](url, body);
+      console.log("response", response);
 
       if (onSuccess) {
         onSuccess(response.data);
@@ -18,9 +19,10 @@ const useRequest = ({ url, method, body, onSuccess }) => {
         <div className="alert alert-danger">
           <h4>Oops...</h4>
           <ul className="my-0">
-            {err.response.data.errors.map((err) => (
-              <li key={err.message}>{err.message}</li>
-            ))}
+            {err.response &&
+              err.response.data.errors.map((err) => (
+                <li key={err.message}>{err.message}</li>
+              ))}
           </ul>
         </div>
       );

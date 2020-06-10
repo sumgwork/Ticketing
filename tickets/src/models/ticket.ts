@@ -53,7 +53,7 @@ const ticketSchema = new mongoose.Schema(
   }
 );
 
-ticketSchema.statics.build = (attr: TicketAttrs) => {
+ticketSchema.statics.build = (attrs: TicketAttrs) => {
   return new Ticket(attrs);
 };
 const Ticket = mongoose.model<TicketDoc, TicketModel>("Ticket", ticketSchema);

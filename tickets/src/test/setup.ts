@@ -12,6 +12,8 @@ declare global {
   }
 }
 
+jest.mock("../nats-wrapper"); // Path to original file
+
 let mongo: any;
 beforeAll(async () => {
   process.env.JWT_KEY = "asdfasdf";
@@ -27,6 +29,7 @@ beforeAll(async () => {
 });
 
 beforeEach(async () => {
+  jest.clearAllMocks(); // to reset count of mock calls
   const collections = await mongoose.connection.db.collections();
 
   for (let collection of collections) {

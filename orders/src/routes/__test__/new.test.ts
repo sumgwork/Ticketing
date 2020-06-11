@@ -1,4 +1,4 @@
-// import { natsWrapper } from "../../nats-wrapper";
+import { natsWrapper } from "../../nats-wrapper";
 import mongoose from "mongoose";
 import request from "supertest";
 import { app } from "../../app";
@@ -78,4 +78,18 @@ it("reserves a ticket", async () => {
   expect(orders[0].status).toEqual(OrderStatus.Created);
 });
 
-it.todo("publishes an event");
+it("publishes an event", async () => {
+  const ticket = Ticket.build({
+    title: "concert",
+    price: 20,
+  });
+  await ticket.save();
+
+  await request(app)
+    .post("/api/orders")
+    .set("Cookie", global.signin())
+    .send({ ticketId: ticket.id })
+    .expect(201);
+
+  expect(natsWrapper.client.publish).toHaveBeenCalled();
+});

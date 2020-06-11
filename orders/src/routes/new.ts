@@ -8,9 +8,10 @@ import {
 import express, { Request, Response } from "express";
 import { body } from "express-validator";
 import mongoose from "mongoose";
-// import { TicketCreatedPublisher } from "../events/publishers/ticket-created-publisher";
 import { Order } from "../models/order";
 import { Ticket } from "../models/ticket";
+import { OrderCreatedPublisher } from "../events/publishers/order-created-publisher";
+import { natsWrapper } from "../nats-wrapper";
 
 const EXPIRATION_WINDOW_SECONDS = 15 * 60; // 15 minutes
 
@@ -58,12 +59,16 @@ router.post(
 
     // Publish an event that an order has been created
 
-    // await new TicketCreatedPublisher(natsWrapper.client).publish({
-    //   id: ticket.id,
-    //   title: ticket.title,
-    //   price: ticket.price,
-    //   userId: ticket.userId,
-    // });
+    await new OrderCreatedPublisher(natsWrapper.client).publish({
+      id: order.id,
+      status: order.status,
+      userId: order.userId,
+      expiresAt: order.expiresAt.toISOString(), // Sharing time across services, better to use Strings since they get transferred as JSON
+      ticket: {
+        id: ticket.id,
+        price: ticket.price,
+      },
+    });
     res.status(201).send(order);
   }
 );

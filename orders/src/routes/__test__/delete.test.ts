@@ -4,6 +4,7 @@ import { Ticket } from "../../models/ticket";
 import mongoose from "mongoose";
 import { OrderStatus } from "@sg-tickets/common";
 import { Order } from "../../models/order";
+import { natsWrapper } from "../../nats-wrapper";
 
 const createTicket = async () => {
   const ticket = Ticket.build({
@@ -60,4 +61,17 @@ it("deletes the particular order", async () => {
   expect(updatedOrder!.status).toEqual(OrderStatus.Cancelled);
 });
 
-it.todo("emits an event");
+it("emits an event", async () => {
+  const ticket1 = await createTicket();
+  const user1 = global.signin();
+
+  const { body: order1 } = await createOrder(ticket1, user1);
+
+  // Make request to get orders for user#2
+  const response = await request(app)
+    .delete(`/api/orders/${order1.id}`)
+    .set("Cookie", user1)
+    .expect(204);
+
+  expect(natsWrapper.client.publish).toHaveBeenCalled();
+});

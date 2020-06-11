@@ -23,7 +23,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@sg-tickets/common": "^1.0.13",
+    "@sg-tickets/common": "^1.0.15",
     "@types/bcrypt": "^3.0.0",
     "@types/cookie-session": "^2.0.40",
     "@types/express": "^4.17.6",

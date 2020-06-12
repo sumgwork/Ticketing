@@ -10,6 +10,7 @@ const createTicket = async () => {
   const ticket = Ticket.build({
     title: "concert",
     price: 20,
+    id: new mongoose.Types.ObjectId().toHexString(),
   });
   await ticket.save();
   return ticket;
@@ -45,7 +46,7 @@ it("throws error if order does not belong to the user", async () => {
     .expect(401);
 });
 
-it("deletes the particular order", async () => {
+it("deletes (cancels) the particular order", async () => {
   const ticket1 = await createTicket();
   const user1 = global.signin();
 

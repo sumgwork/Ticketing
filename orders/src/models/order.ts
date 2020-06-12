@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import { OrderStatus } from "@sg-tickets/common";
 import { TicketDoc } from "./ticket";
+import { updateIfCurrentPlugin } from "mongoose-update-if-current";
 
 export { OrderStatus }; // Exporting this so that in ticket model it can be imported straight from order model
 /**
@@ -29,6 +30,7 @@ interface OrderDoc extends mongoose.Document {
   status: OrderStatus;
   expiresAt: Date;
   ticket: TicketDoc;
+  version: number;
   // Any extra property like createdAt, updatedAt will be applied here
 }
 
@@ -58,11 +60,13 @@ const orderSchema = new mongoose.Schema(
       transform(doc, ret) {
         ret.id = ret._id;
         delete ret._id; // Changed _id to id
-        delete ret.__v; // Removed version key. Another way was to set it false in options (3rd arg)
       },
     },
   }
 );
+
+orderSchema.set("versionKey", "version");
+orderSchema.plugin(updateIfCurrentPlugin);
 
 orderSchema.statics.build = (attrs: OrderAttrs) => {
   return new Order(attrs);

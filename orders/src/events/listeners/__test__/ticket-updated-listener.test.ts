@@ -52,3 +52,14 @@ it("Acknowledges a message", async () => {
   // assertions to make sure ack function is called
   expect(msg.ack).toHaveBeenCalled();
 });
+
+it("does not call ack if event is out of sync (skipped version)", async () => {
+  const { msg, data, listener, ticket } = await setup();
+
+  data.version = 10;
+  try {
+    await listener.onMessage(data, msg);
+  } catch (error) {}
+
+  expect(msg.ack).not.toHaveBeenCalled();
+});

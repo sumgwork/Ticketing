@@ -63,6 +63,7 @@ router.post(
       id: order.id,
       status: order.status,
       userId: order.userId,
+      version: order.version,
       expiresAt: order.expiresAt.toISOString(), // Sharing time across services, better to use Strings since they get transferred as JSON
       ticket: {
         id: ticket.id,

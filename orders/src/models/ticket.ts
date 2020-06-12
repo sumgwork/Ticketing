@@ -17,6 +17,10 @@ interface TicketAttrs {
  */
 interface TicketModel extends mongoose.Model<TicketDoc> {
   build(attrs: TicketAttrs): TicketDoc;
+  findByEvent(event: {
+    id: String;
+    version: number;
+  }): Promise<TicketDoc | null>;
 }
 
 /**
@@ -72,6 +76,13 @@ ticketSchema.statics.build = (attrs: TicketAttrs) => {
   });
 };
 
+ticketSchema.statics.findByEvent = function (event: {
+  id: string;
+  version: number;
+}) {
+  return Ticket.findOne({ _id: event.id, version: event.version - 1 });
+};
+
 ticketSchema.methods.isReserved = async function () {
   const existingOrder = await Order.findOne({
     ticket: this, // this === the ticket document that we just called 'isReserved' on
@@ -85,6 +96,7 @@ ticketSchema.methods.isReserved = async function () {
   });
   return !!existingOrder;
 };
+
 const Ticket = mongoose.model<TicketDoc, TicketModel>("Ticket", ticketSchema);
 
 export { Ticket };

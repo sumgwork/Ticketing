@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node-dev src/index.ts",
+    "start": "ts-node-dev --poll src/index.ts",
     "test": "jest --watchAll --no-cache"
   },
   "jest": {
@@ -18,7 +18,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@sg-tickets/common": "^1.0.18",
+    "@sg-tickets/common": "^1.0.19",
     "@types/bull": "^3.12.2",
     "bull": "^3.13.0",
     "node-nats-streaming": "^0.3.2",

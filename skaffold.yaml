@@ -16,6 +16,14 @@ build:
         manual:
           - src: "src/**/*.ts"
             dest: .
+    - image: sumitgovilstudy/client
+      context: client
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "**/*.js"
+            dest: .
     - image: sumitgovilstudy/tickets
       context: tickets
       docker:
@@ -31,12 +39,4 @@ build:
       sync:
         manual:
           - src: "src/**/*.ts"
-            dest: .
-    - image: sumitgovilstudy/client
-      context: client
-      docker:
-        dockerfile: Dockerfile
-      sync:
-        manual:
-          - src: "**/*.js"
             dest: .

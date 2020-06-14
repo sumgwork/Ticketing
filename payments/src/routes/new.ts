@@ -9,6 +9,7 @@ import {
 import express, { Request, Response } from "express";
 import { body } from "express-validator";
 import { Order } from "../models/order";
+import { Payment } from "../models/payment";
 import { stripe } from "../stripe";
 
 const router = express.Router();
@@ -44,12 +45,14 @@ router.post(
     }
     // Make sure the payment amount matches
     // Verify Payment with stripe API
-    await stripe.charges.create({
+    const charge = await stripe.charges.create({
       currency: process.env.CURRENCY,
       amount: order.price * 100, // in cents
       source: token,
     });
     // Create 'Charge' record for successful payment
+    const payment = Payment.build({ orderId, stripeId: charge.id });
+    await payment.save();
     res.status(201).send({ success: true });
   }
 );

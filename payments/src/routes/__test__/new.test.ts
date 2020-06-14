@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import request from "supertest";
 import { app } from "../../app";
 import { Order } from "../../models/order";
+import { Payment } from "../../models/payment";
 import { OrderStatus } from "@sg-tickets/common";
 import { stripe } from "../../stripe";
 
@@ -98,4 +99,11 @@ it("returns a 204 with valid inputs", async () => {
   expect(stripeCharge).toBeDefined();
   expect(stripeCharge!.currency).toEqual(process.env.CURRENCY);
   expect(stripeCharge!.amount).toEqual(price * 100);
+
+  // Check if the payment was saved
+  const payment = await Payment.findOne({
+    stripeId: stripeCharge!.id,
+    orderId: order.id,
+  });
+  expect(payment).not.toBeNull();
 });

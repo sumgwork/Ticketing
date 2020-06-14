@@ -13,7 +13,9 @@ declare global {
 }
 
 jest.mock("../nats-wrapper"); // Path to original file
-
+process.env.STRIPE_KEY =
+  "sk_test_51Gtnf2HeRVMf3mwxE7jem892dYr1wpY8fCbFhydMoy4IN8heDvreHqjJCpjufjWR7vbwAMJBr5gJVTwRkE7qkPlf00OUHNyXv9";
+process.env.CURRENCY = "aud";
 let mongo: any;
 beforeAll(async () => {
   process.env.JWT_KEY = "asdfasdf";

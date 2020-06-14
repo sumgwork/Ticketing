@@ -6,7 +6,7 @@ import { Order } from "../../models/order";
 import { OrderStatus } from "@sg-tickets/common";
 import { stripe } from "../../stripe";
 
-jest.mock("../../stripe");
+// jest.mock("../../stripe");
 
 it("has a route handler listening to /api/payments for post requests", async () => {
   const response = await request(app).post("/api/payments").send({});
@@ -72,11 +72,12 @@ it("returns 400 when purchasing a cancelled order", async () => {
 
 it("returns a 204 with valid inputs", async () => {
   const userId = mongoose.Types.ObjectId().toHexString();
+  const price = Math.floor(Math.random() * 1000); // Randomly generated for realistic test implementation
   const order = Order.build({
     id: mongoose.Types.ObjectId().toHexString(),
     userId,
     version: 0,
-    price: 20,
+    price,
     status: OrderStatus.Created,
   });
   await order.save();
@@ -87,8 +88,14 @@ it("returns a 204 with valid inputs", async () => {
     .send({ orderId: order.id, token: "tok_visa" }) // tok_visa works in test mode and passes the payment
     .expect(201);
 
-  const chargeOptions = (stripe.charges.create as jest.Mock).mock.calls[0][0];
-  expect(chargeOptions.source).toEqual("tok_visa");
-  expect(chargeOptions.amount).toEqual(20 * 100);
-  expect(chargeOptions.currency).toEqual(process.env.CURRENCY);
+  /**
+   * We are going to fetch 50 recent charges from stripe API and find the one which matches our test
+   */
+  const stripeCharges = await stripe.charges.list({ limit: 50 });
+  const stripeCharge = stripeCharges.data.find(
+    (charge) => charge.amount === price * 100
+  );
+  expect(stripeCharge).toBeDefined();
+  expect(stripeCharge!.currency).toEqual(process.env.CURRENCY);
+  expect(stripeCharge!.amount).toEqual(price * 100);
 });

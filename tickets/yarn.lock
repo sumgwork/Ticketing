@@ -457,10 +457,10 @@
     "@types/yargs" "^15.0.0"
     chalk "^4.0.0"
 
-"@sg-tickets/common@^1.0.18":
-  version "1.0.18"
-  resolved "https://registry.yarnpkg.com/@sg-tickets/common/-/common-1.0.18.tgz#c0d5c4c89464e5b5619018b93d8ba9de638021e7"
-  integrity sha512-w9TT2SR4rPcjQSv+v72/pVFutUSa1xna1vXLyCvADW2RfsaMRNkrBIM6k/Wr2ihpNFnsilapk0psK9Xd+1jRig==
+"@sg-tickets/common@^1.0.22":
+  version "1.0.22"
+  resolved "https://registry.yarnpkg.com/@sg-tickets/common/-/common-1.0.22.tgz#fa89dc7fe652e1c82a6d4c1a0718854ae6d84109"
+  integrity sha512-3YDwT6ssUTdpW5cjBUfZ2s8UfMoAeMSLzrIqN3hYUJQp6YCi1R+IxhFG7Cs7RwO8q/bZ+uL2tc9roZVTXuq/sQ==
   dependencies:
     "@types/cookie-session" "^2.0.40"
     "@types/express" "^4.17.6"

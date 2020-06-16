@@ -1,10 +1,9 @@
-import { OrderCancelledListener } from "../order-Cancelled-listener";
-import { natsWrapper } from "../../../nats-wrapper";
-import { Order } from "../../../models/order";
+import { OrderCancelledEvent, OrderStatus } from "@sg-tickets/common";
 import mongoose from "mongoose";
-import { OrderStatus } from "../../../../../common/src/events/types/order-status";
 import { Message } from "node-nats-streaming";
-import { OrderCancelledEvent } from "../../../../../common/src/events/order-cancelled-event";
+import { Order } from "../../../models/order";
+import { natsWrapper } from "../../../nats-wrapper";
+import { OrderCancelledListener } from "../order-cancelled-listener";
 
 const setup = async () => {
   const listener = new OrderCancelledListener(natsWrapper.client);

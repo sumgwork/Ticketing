@@ -1,9 +1,9 @@
-import { OrderCreatedListener } from "../order-created-listener";
-import { natsWrapper } from "../../../nats-wrapper";
-import { Order } from "../../../models/order";
+import { OrderStatus } from "@sg-tickets/common";
 import mongoose from "mongoose";
-import { OrderStatus } from "../../../../../common/src/events/types/order-status";
 import { Message } from "node-nats-streaming";
+import { Order } from "../../../models/order";
+import { natsWrapper } from "../../../nats-wrapper";
+import { OrderCreatedListener } from "../order-created-listener";
 
 const setup = async () => {
   const listener = new OrderCreatedListener(natsWrapper.client);

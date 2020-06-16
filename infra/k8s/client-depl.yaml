@@ -15,6 +15,9 @@ spec:
       containers:
         - name: client
           image: sumitgovilstudy/client
+          env:
+            - name: PUBLISHABLE_STRIPE_KEY
+              value: "pk_test_51Gtnf2HeRVMf3mwxAcw3MLLDeHbHwa1YH4ljJWKgpGC9bWfaSjJi5563qHrZ0fhApdjAliayEui2FFBWnXaR91iz00PajSMsFt"
 ---
 apiVersion: v1
 kind: Service

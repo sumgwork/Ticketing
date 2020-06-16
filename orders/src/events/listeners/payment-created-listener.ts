@@ -13,8 +13,10 @@ export class PaymentCreatedListener extends Listener<PaymentCreatedEvent> {
   queueGroupName: string = queueGroupName;
 
   async onMessage(data: PaymentCreatedEvent["data"], msg: Message) {
-    const { id, chargeId, orderId } = data;
-
+    const { id, stripeId, orderId } = data;
+    /**
+     * For future proofing, this stripeId (or charge id) can be stored in DB
+     */
     const order = await Order.findById(orderId);
     if (!order) {
       throw new Error("Order not found");

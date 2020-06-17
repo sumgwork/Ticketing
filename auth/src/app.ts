@@ -16,7 +16,8 @@ app.use(
   cookieSession({
     signed: false, // no need to encrypt the content of the cookie
     // secure: true, // Should be true for https connection (will fail in test env)
-    secure: process.env.NODE_ENV !== "test",
+    // secure: process.env.NODE_ENV !== "test",
+    secure: false,
   })
 );
 

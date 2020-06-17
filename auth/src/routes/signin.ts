@@ -36,6 +36,7 @@ router.post(
       },
       process.env.JWT_KEY! // This ! conveys to TS that we have already ensured this key is defined (in index.ts)
     );
+    // @ts-ignore
     req.session = {
       jwt: userJwt,
     };

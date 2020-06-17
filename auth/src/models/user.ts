@@ -61,7 +61,7 @@ userSchema.pre("save", async function (done) {
   done();
 });
 
-userSchema.statics.build = (attr: UserAttrs) => {
+userSchema.statics.build = (attrs: UserAttrs) => {
   return new User(attrs);
 };
 const User = mongoose.model<UserDoc, UserModel>("User", userSchema);

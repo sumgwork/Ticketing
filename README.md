@@ -49,6 +49,7 @@ and wait for the magic to begin. :)
 Different services in the app make use of shared code distributed as an NPM module.
 [@sg-tickets/common](https://www.npmjs.com/package/@sg-tickets/common)
 
+[Repository](https://github.com/sumgwork/Ticketing-Shared-Code)
 
 
 ## Testing

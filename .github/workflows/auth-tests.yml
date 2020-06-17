@@ -2,7 +2,9 @@ name: Auth Tests
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 on:
-  pull_request
+  pull_request:
+    paths:
+      - "auth/**"
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -13,9 +15,9 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v2
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
 
-    # Runs a single command
-    - name: Run a test script
-      run: cd auth && npm install && npm run test:ci
+      # Runs a single command
+      - name: Run a test script
+        run: cd auth && npm install && npm run test:ci

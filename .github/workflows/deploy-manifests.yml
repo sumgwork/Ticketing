@@ -26,4 +26,5 @@ jobs:
       with:
         token: ${{ secrets.DIGITAL_OCEAN_ACCESS_TOKEN }}
     - run: doctl kubernetes cluster kubeconfig save ticketing # Switch to doctl context
-    - run: kubectl apply -f infra/k8s # Apply all config files to our cluster
+    # Apply all config files to our cluster
+    - run: kubectl apply -f infra/k8s && kubectl apply -f infra/k8s-prod

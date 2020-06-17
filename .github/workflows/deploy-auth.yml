@@ -29,3 +29,8 @@ jobs:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
     - run: docker push sumitgovilstudy/auth
+    - uses: digitalocean/action-doctl@v2  # Install Doctl into running Github container
+      with:
+        token: ${{ secrets.DIGITAL_OCEAN_ACCESS_TOKEN }}
+    - run: doctl kubernetes cluster kubeconfig save ticketing # Switch to doctl context
+    - run: kubectl rollout restart deployment auth-depl # Restart deployment

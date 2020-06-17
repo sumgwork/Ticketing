@@ -169,7 +169,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"title\": \"Concert\",\n\t\"price\": 20\n}",
+							"raw": "{\n\t\"title\": \"First Concert\",\n\t\"price\": 20\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -198,7 +198,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"title\": \"New Concert\",\n\t\"price\": 200\n}",
+							"raw": "{\n\t\"title\": \"First Concert\",\n\t\"price\": 25\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -206,7 +206,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://ticketing.dev/api/tickets/5edf274cf4c8d80018c83674",
+							"raw": "https://ticketing.dev/api/tickets/5ee2bcabc0d43300196c3a64",
 							"protocol": "https",
 							"host": [
 								"ticketing",
@@ -215,7 +215,7 @@
 							"path": [
 								"api",
 								"tickets",
-								"5edf274cf4c8d80018c83674"
+								"5ee2bcabc0d43300196c3a64"
 							]
 						}
 					},
@@ -247,7 +247,80 @@
 		},
 		{
 			"name": "Orders",
-			"item": [],
+			"item": [
+				{
+					"name": "Create Order",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"ticketId\": \"5ee5b2770a09a70023bbfb5b\"\n}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "https://ticketing.dev/api/orders",
+							"protocol": "https",
+							"host": [
+								"ticketing",
+								"dev"
+							],
+							"path": [
+								"api",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Payments",
+			"item": [
+				{
+					"name": "Create Charge",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"token\": \"tok_visa\",\n    \"orderId\": \"5ee5b294d302ec0018e0df10\"\n}   ",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "https://ticketing.dev/api/payments",
+							"protocol": "https",
+							"host": [
+								"ticketing",
+								"dev"
+							],
+							"path": [
+								"api",
+								"payments"
+							]
+						}
+					},
+					"response": []
+				}
+			],
 			"protocolProfileBehavior": {}
 		}
 	],

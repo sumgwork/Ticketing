@@ -1,10 +1,10 @@
-name: Auth Tests
+name: test-payments
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 on:
   pull_request:
     paths:
-      - "auth/**"
+      - "payments/**"
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -20,4 +20,4 @@ jobs:
 
       # Runs a single command
       - name: Run a test script
-        run: cd auth && npm install && npm run test:ci
+        run: cd payments && npm install && npm run test:ci
